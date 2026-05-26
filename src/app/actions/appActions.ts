@@ -13,21 +13,38 @@ const mealSchema = z.object({
 
 export async function createMeal(formData: FormData) {
   const supabase = await createClient();
-  const rawData = {
-    description: formData.get('description') as string,
-    calories: Number(formData.get('calories')),
-    type: formData.get('type') as any,
-    date: formData.get('date') as string,
-  };
-
-  const validated = mealSchema.parse(rawData);
   
-  const { error } = await supabase.from('meals').insert([{
-    ...validated,
-    date: new Date(validated.date).toISOString()
-  }]);
+  try {
+    const rawData = {
+      description: formData.get('description') as string,
+      calories: Number(formData.get('calories')),
+      type: formData.get('type') as any,
+      date: formData.get('date') as string,
+    };
 
-  if (error) throw new Error(error.message);
+    // Validação do Zod
+    const validated = mealSchema.parse(rawData);
+    
+    // Força a data a ir em um formato simplificado de texto YYYY-MM-DD para não quebrar fusos
+    const apenasDataISO = new Date(validated.date).toISOString();
+
+    const { error } = await supabase.from('meals').insert([{
+      description: validated.description,
+      calories: validated.calories,
+      type: validated.type,
+      date: apenasDataISO // Garante o padrão correto
+    }]);
+
+    if (error) {
+      console.error("Erro retornado pelo Supabase ao inserir comida:", error.message);
+      throw new Error(error.message);
+    }
+  } catch (err: any) {
+    console.error("Erro crítico na Server Action createMeal:", err);
+    // Em vez de estourar o servidor, redireciona ou lança um erro amigável
+    throw new Error("Falha ao registrar alimento. Verifique os dados.");
+  }
+
   revalidatePath('/dashboard');
 }
 
