@@ -253,11 +253,14 @@ export default async function DashboardPage() {
                     </div>
                     <div className="flex items-center gap-4">
                       <span className="font-black text-sm text-blue-600 dark:text-blue-400">{meal.calories} kcal</span>
-                      <form action={async () => { 'use server'; if(confirm('Deseja realmente excluir esta refeição do seu histórico?')) await deleteMeal(meal.id); }}>
-                        <button className="text-slate-300 hover:text-red-500 transition p-1 rounded-lg hover:bg-red-50 dark:hover:bg-red-950/30">
-                          <Trash2 size={15} />
-                        </button>
-                      </form>
+                     <form action={async () => { 
+  'use server'; 
+  await deleteMeal(meal.id); 
+}}>
+  <button type="submit" className="text-slate-300 hover:text-red-500 transition p-1 rounded-lg hover:bg-red-50 dark:hover:bg-red-950/30">
+    <Trash2 size={15} />
+  </button>
+</form>
                     </div>
                   </div>
                 ))

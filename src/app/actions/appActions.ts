@@ -12,7 +12,7 @@ const mealSchema = z.object({
 });
 
 export async function createMeal(formData: FormData) {
-  const supabase = await createClient(); // Atualizado com await
+  const supabase = await createClient();
   const rawData = {
     description: formData.get('description') as string,
     calories: Number(formData.get('calories')),
@@ -32,7 +32,7 @@ export async function createMeal(formData: FormData) {
 }
 
 export async function updateMeal(id: string, formData: FormData) {
-  const supabase = await createClient(); // Atualizado com await
+  const supabase = await createClient();
   const rawData = {
     description: formData.get('description') as string,
     calories: Number(formData.get('calories')),
@@ -51,17 +51,23 @@ export async function updateMeal(id: string, formData: FormData) {
   revalidatePath('/dashboard');
 }
 
+// CORREÇÃO: Removeu-se qualquer lógica de UI (como confirm) daqui de dentro
 export async function deleteMeal(id: string) {
-  const supabase = await createClient(); // Atualizado com await
+  const supabase = await createClient();
   const { error } = await supabase.from('meals').delete().eq('id', id);
   if (error) throw new Error(error.message);
   revalidatePath('/dashboard');
 }
 
+// CORREÇÃO: Garantindo a atualização da meta encontrando o usuário de forma robusta
 export async function updateCalorieGoal(goal: number) {
-  const supabase = await createClient(); // Atualizado com await
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) throw new Error("Não autenticado");
+  const supabase = await createClient();
+  
+  // Pega a sessão ativa
+  const { data: { session } } = await supabase.auth.getSession();
+  const user = session?.user;
+  
+  if (!user) throw new Error("Usuário não identificado na sessão.");
 
   const { error } = await supabase.from('profiles').update({
     daily_calorie_goal: goal,
@@ -73,7 +79,7 @@ export async function updateCalorieGoal(goal: number) {
 }
 
 export async function startFast(plannedType: string) {
-  const supabase = await createClient(); // Atualizado com await
+  const supabase = await createClient();
   const { error } = await supabase.from('fasts').insert([{
     start_time: new Date().toISOString(),
     planned_type: plannedType
@@ -84,7 +90,7 @@ export async function startFast(plannedType: string) {
 }
 
 export async function endFast(activeFastId: string) {
-  const supabase = await createClient(); // Atualizado com await
+  const supabase = await createClient();
   const { error } = await supabase.from('fasts').update({
     end_time: new Date().toISOString()
   }).eq('id', activeFastId);
