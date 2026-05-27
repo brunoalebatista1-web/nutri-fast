@@ -90,22 +90,11 @@ A aplicação estará disponível em: http://localhost:3000
 Passo 6: Testando a Aplicação
 Acesse http://localhost:3000
 Clique em "Criar Conta"
-Registre-se com um email (pode usar email de teste)
-Configure uma meta de 2000 calorias
-Adicione algumas refeições
+Registre-se com um email
+Configure uma meta de calorias
+Adicione suas refeições
 Inicie um jejum e veja o timer em ação!
 🔐 Variáveis de Ambiente Necessárias
-Crie um arquivo .env.local na raiz do projeto com as seguintes variáveis:
-
-env
-# Supabase API
-NEXT_PUBLIC_SUPABASE_URL=https://seu-projeto.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-Explicação das Variáveis
-Variável	Descrição
-NEXT_PUBLIC_SUPABASE_URL	URL da sua instância Supabase (encontrada em Settings → API)
-NEXT_PUBLIC_SUPABASE_ANON_KEY	Chave pública do Supabase (role: anon, encontrada em Settings → API)
-⚠️ Nota: Essas variáveis são públicas (prefixo NEXT_PUBLIC_) e serão expostas no cliente. Nunca compartilhe sua chave privada (role: service_role).
 
 📱 Funcionalidades Principais
 🔐 Autenticação
@@ -160,46 +149,39 @@ Clique em "New Project"
 Importe seu repositório
 Configure as variáveis de ambiente
 Clique em "Deploy"
-📸 Screenshots das Telas Principais
-🏠 Landing Page
-Página inicial com informações sobre a aplicação
 
-![Landing Page]([Adicionar screenshot aqui])
 
-📋 Página de Login
+📋 Página de Login e de Cadastro
 Autenticação segura com email e senha
 
 ![Login]([Adicionar screenshot aqui])
 
-📋 Página de Cadastro
-Registro de novos usuários
-
-![Signup]([Adicionar screenshot aqui])
-
 📊 Dashboard Principal
 Visão geral com resumo de calorias, jejum e refeições
 
-![Dashboard]([Adicionar screenshot aqui])
+<img width="1919" height="907" alt="image" src="https://github.com/user-attachments/assets/2501195c-300e-43e3-b502-a763722bfc64" />
+
 
 📈 Gráficos Semanais
 Análise visual do progresso da semana
 
-![Gráficos]([Adicionar screenshot aqui])
+<img width="1573" height="440" alt="image" src="https://github.com/user-attachments/assets/c079fe33-6cbf-4bad-97e7-d9d676d89084" />
+
 
 🍽️ Modal de Refeições
 Interface para adicionar/editar refeições
 
-![Meal Dialog]([Adicionar screenshot aqui])
+<img width="1562" height="652" alt="image" src="https://github.com/user-attachments/assets/a72d6157-51f8-4945-9a02-a618cc2ee6d9" />
+
 
 ⏱️ Timer de Jejum
 Visualização em tempo real do jejum
 
-![Fasting Timer]([Adicionar screenshot aqui])
+<img width="1570" height="261" alt="image" src="https://github.com/user-attachments/assets/854c2768-a2ce-4a7c-9833-e46c0794d319" />
+
 
 🌙 Modo Escuro
 Tema escuro disponível em toda a aplicação
-
-![Dark Mode]([Adicionar screenshot aqui])
 
 📁 Estrutura do Projeto
 Code
@@ -264,8 +246,8 @@ caloriefast/
 └── README.md                          # Este arquivo
 🔒 Segurança
 Row Level Security (RLS)
-Todas as tabelas do banco de dados possuem políticas RLS ativadas:
 
+Todas as tabelas do banco de dados possuem políticas RLS ativadas:
 Usuários só podem acessar seus próprios dados
 Queries SQL automaticamente filtram por user_id
 Impossível acessar dados de outro usuário mesmo se contornar a UI
@@ -290,15 +272,7 @@ npm start
 
 # Executar linter
 npm run lint
-🤝 Como Contribuir
-Se você encontrar bugs ou tiver sugestões de melhorias:
 
-Abra uma issue
-Faça um fork do projeto
-Crie uma branch para sua feature (git checkout -b feature/AmazingFeature)
-Commit suas mudanças (git commit -m 'Add some AmazingFeature')
-Push para a branch (git push origin feature/AmazingFeature)
-Abra um Pull Request
 📄 Licença
 Este projeto está sob a licença MIT.
 
