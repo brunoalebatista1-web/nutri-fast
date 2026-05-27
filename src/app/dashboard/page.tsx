@@ -3,6 +3,8 @@ import { createMeal, deleteMeal, startFast, endFast, updateCalorieGoal } from '.
 import { signout } from '../auth/actions';
 import DashboardCharts from '@/components/DashboardCharts';
 import { LogOut, Plus, Trash2, Zap, Trophy, Flame, Utensils, Calendar } from 'lucide-react';
+import DeleteMealButton from '@/components/DeleteMealButton';
+
 
 export default async function DashboardPage() {
   const supabase = await createClient();
@@ -260,19 +262,8 @@ export default async function DashboardPage() {
                       <div className="flex items-center gap-4">
                         <span className="font-black text-sm text-blue-600 dark:text-blue-400">{meal.calories} kcal</span>
                         
-                        <form action={async () => { 'use server'; await deleteMeal(meal.id); }}>
-                          <button 
-                            type="submit" 
-                            onClick={(e) => {
-                              if (!confirm('Deseja realmente remover esta refeição permanentemente do seu relatório?')) {
-                                e.preventDefault();
-                              }
-                            }}
-                            className="text-slate-300 hover:text-red-500 transition p-1 rounded-lg hover:bg-red-50 dark:hover:bg-red-950/30"
-                          >
-                            <Trash2 size={15} />
-                          </button>
-                        </form>
+                        <DeleteMealButton mealId={meal.id} />
+
                       </div>
                     </div>
                   );
